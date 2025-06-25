@@ -3801,6 +3801,48 @@ void QgisApp::createToolBars()
     layout->itemAt( i )->setAlignment( Qt::AlignLeft );
   }
 
+  // AAAA VEDRAN
+
+  QToolButton *pasteButton = qobject_cast<QToolButton *>(mDigitizeToolBar->widgetForAction(mActionPasteFeatures));
+  if (pasteButton)
+  {
+      QMenu *pasteMenu = new QMenu( this );
+      pasteButton->setMenu( pasteMenu );
+      pasteButton->setPopupMode(QToolButton::MenuButtonPopup);
+      // pasteButton->setEnabled(true);                        // Enable the pasteButton widget
+      // pasteButton->defaultAction()->setEnabled(false);      // Disable the main action
+      mActionPasteFeatures->setEnabled(false);
+      pasteMenu->addAction( mActionPasteAsNewVector );
+      pasteMenu->addAction( mActionPasteAsNewMemoryVector );
+  }
+
+
+
+
+  //QMenu *pasteMenu = new QMenu( this );
+//
+  //QAction *mActionPasteAsNewVector = new QAction( tr( "Paste as new vector layer" ), this );
+  //QAction *mActionPasteAsNewMemoryVector = new QAction( tr( "Paste as new memory layer" ), this );
+//
+  ////connect( actionPasteToLayer1, &QAction::triggered, this, &QgisApp::pasteAsNewVector );
+  ////connect( actionPasteToLayer2, &QAction::triggered, this, &QgisApp::pasteToLayerB );
+//
+  //pasteMenu->addAction( mActionPasteAsNewVector );
+  //pasteMenu->addAction( mActionPasteAsNewMemoryVector );
+//
+  //// Reuse the existing paste action for icon/tooltip, but disable its click
+  //mActionPasteFeatures->setEnabled( false );
+//
+  //QToolButton *pasteButton = new QToolButton();
+  //pasteButton->setDefaultAction( mActionPasteFeatures );
+  //pasteButton->setMenu( pasteMenu );
+  //pasteButton->setPopupMode( QToolButton::MenuButtonPopup );
+  //pasteButton->setEnabled( true );  // Keep dropdown active
+//
+  //mDigitizeToolBar->addWidget( pasteButton );
+
+  // AAAA VEDRAN
+
   // Cad toolbar
   mAdvancedDigitizeToolBar->insertAction( mAdvancedDigitizeToolBar->actions().at( 0 ), mAdvancedDigitizingDockWidget->enableAction() );
 
@@ -15057,6 +15099,8 @@ void QgisApp::activateDeactivateLayerRelatedActions( QgsMapLayer *layer )
     mActionCutFeatures->setEnabled( false );
     mActionCopyFeatures->setEnabled( false );
     mActionPasteFeatures->setEnabled( false );
+    mActionPasteAsNewVector->setEnabled( true ); //VEDRAN
+    mActionPasteAsNewMemoryVector->setEnabled( true ); //VEDRAN
     mActionCopyStyle->setEnabled( false );
     mActionPasteStyle->setEnabled( mLayerTreeView && mLayerTreeView->currentNode() && QgsLayerTree::isGroup( mLayerTreeView->currentNode() ) && clipboard()->hasFormat( QStringLiteral( QGSCLIPBOARD_STYLE_MIME ) ) );
     mActionCopyLayer->setEnabled( false );
